@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "QuestionIndex";
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadQuestion();
+
+    });
+
+    function SaveAnswer() {
+        var answerText = "";
+        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:checked"),
+            function () {
+                answerText = $(this).val();
+            });
+        var CandidateAnswer = { CategoryId: $("#txtCategoryId").val(), QuestionId: $("#txtQuestionId").val(), AnswerText: answerText };
+
+
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset = utf-8',
+            data: CandidateAnswer,
+            url: '/Quiz/SaveAnswer',
+            success: function (data) {
+                if (data.success === true) {
+                    /*alert(data.message);*/
+                    window.location.href = "/Quiz/GetFinalResult";
+                }
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    function LoadQuestion() {
+        var answerText = "";
+        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:checked"),
+            function () {
+                answerText = $(this).val();
+                
+            });
+        var questionId = document.getElementById("txtQuestionId");
+        var CandidateAnswer = { CategoryId: $("#txtCategoryId").val(), QuestionId: $("#txtQuestionId").val(), AnswerText: answerText };
+
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'HTML',
+            contentType: 'application/json; charset = utf-8',
+            data: CandidateAnswer,
+            url: '/Quiz/UserQuestionAnswer',
+            success: function (data) {
+                $("#divQuestionOption").html(data);
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+</script>
+<div id="divQuestionOption">
+
+</div>
+
+

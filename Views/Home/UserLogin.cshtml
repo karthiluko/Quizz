@@ -1,0 +1,175 @@
+﻿@model Quizz.ViewModel.AdminViewModel
+@{
+    ViewBag.Title = "UserLogin";
+    //Layout = null;
+}
+
+<style>
+        .containerlogin {
+            width: 400px;
+            min-height: 400px;
+            padding-left: 30px;
+            padding-top: 20px;
+            /*border-radius: 25px;
+            border: 0.3px solid black;
+            margin: 6% auto;
+            background-color: #558cb1;
+margin-top: 3%;*/
+        }
+
+            .containerlogin.row {
+                width: 100%;
+                /*margin-left:20px;*/
+            }
+
+        .form-control {
+            border-radius: 15px;
+        }
+
+        #login {
+            margin-left: 30px;
+        }
+        #login span{
+            margin-top: 15px;
+            padding:5px;
+            text-align: center
+        }
+
+        #title {
+            padding: 10px;
+        }
+
+        .btn-login {
+            font-size: 13px;
+            letter-spacing: 0.05rem;
+            border-radius: 18px;
+        }
+
+        .form-label-group {
+            position: relative;
+            margin-bottom: 1rem;
+            /*margin-right: 15%;*/
+        }
+
+            #login span{
+                margin-top:5px;
+            }
+
+            #link {
+                margin-top: 20px;
+                padding-left: 60px;
+            }
+
+        #link p a{
+            color: black;
+        }
+        .fit-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+         /* only if you want fixed height */
+        }
+        .col-md-6{
+            padding: 0;
+        }
+
+       @*body {
+            background-image: url('@Url.Content("../../Content/Images/quiz_login_2.jpg")');
+            background-repeat: no-repeat;
+            background-size: cover;
+/*            background-position:center;
+              opacity: 0.6;
+*/            margin: 0;
+       }*@
+
+    @@media (max-width:1023px) {
+        .containerlogin {
+            width: 330px;
+
+        }
+            #login {
+                width: 90%;
+                margin-left:20px;
+            }
+        #link p a {
+            color: yellow;
+        }
+    }
+
+        @@media (max-width:824px) {
+        .containerlogin {
+            width: 320px;
+            margin: 10% auto;
+        }
+        #login {
+            width: 80%;
+        }
+    }
+
+        @@media (max-width:652px) {
+            .containerlogin {
+                margin: 15% auto;
+                width: 310px;
+            }
+        }
+
+        @@media (max-width:492px) {
+            .containerlogin {
+                margin: 20% auto;
+                width: 300px;
+            }
+        }
+
+</style>
+
+<div class="container" style="margin: 8% auto; padding-left: 70px; padding-right:30px;">
+    <div class="col-md-6">
+        <img src="~/Content/Images/quiz_login_1.jpg" class="fit-image" />
+    </div>
+    <div class="col-md-6" style="width: 400px; background-color: white">
+        <div class="containerlogin">
+            <div class="row" id="login">
+                <h3 id="title">Welcome back!</h3>
+                @using (Html.BeginForm("UserLogin", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                    <div class="form-label-group">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "User Name", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="form-label-group">
+                        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control", @placeholder = "Password", autofocus = "autofocus" })
+                        @Html.ValidationMessageFor(m => m.UserPassword, null, new { @class = "text-danger" })
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3" style="margin: 0 auto">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Remember password</label>
+                    </div>
+                    @*<div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberMe)
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                            </div>
+                        </div>*@
+                    <div class="form-label-group">
+                        <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" />
+                    </div>
+                    <div id="link">
+                        <p style="margin-left:5px">
+                            @Html.ActionLink("Register as a new user", "Index", "Payment")
+                        </p>
+                        @*Enable this once you have account confirmation enabled for password reset functionality*@
+                        <p style="margin-left:20px">
+                            @Html.ActionLink("Forgot password?", "ForgotPassword")
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,136 @@
+﻿@model Quizz.ViewModel.QuestionAnswerViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "QuestionIndex";
+}
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*LoadQuestion();*/
+
+    });
+
+    function SaveAnswer() {
+        var answerText = "";
+        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:checked"),
+            function () {
+                answerText = $(this).val();
+            });
+        var CandidateAnswer = { CategoryId: $("#txtCategoryId").val(), QuestionId: $("#txtQuestionId").val(), AnswerText: answerText };
+
+
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset = utf-8',
+            data: CandidateAnswer,
+            url: '/Quiz/SaveAnswer',
+            success: function (data) {
+                if (data.success === true) {
+                    /*alert(data.message);*/
+                    window.location.href = "/Quiz/GetFinalResult";
+                }
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+    function LoadQuestion() {
+        var answerText = "";
+        $.each($("#tblQuestionOption tr").find("td:eq(0) input[type=radio]:checked"),
+            function () {
+                answerText = $(this).val();
+
+            });
+        var questionId = document.getElementById("txtQuestionId");
+        var CandidateAnswer = { CategoryId: $("#txtCategoryId").val(), QuestionId: $("#txtQuestionId").val(), AnswerText: answerText };
+
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'HTML',
+            contentType: 'application/json; charset = utf-8',
+            data: CandidateAnswer,
+            url: '/Quiz/UserQuestionAnswer',
+            success: function (data) {
+                $("#divQuestionOption").html(data);
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+
+</script>
+<div id="divQuestionOption">
+
+</div>
+
+
+
+
+<style type="text/css">
+    fieldset {
+        font-family: sans-serif;
+        border: 3px solid #0c0438;
+        background: white;
+        border-radius: 5px;
+        padding: 15px;
+        /*margin: 10% auto;*/
+    }
+
+        fieldset legend {
+            background: #0c0438;
+            color: #fff;
+            padding: 5px 10px 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+            /*box-shadow: 0 0 0 5px #ddd;*/
+            margin-left: 1px;
+            margin-right: 10px;
+        }
+</style>
+<br />
+<br />
+
+<div class="container" style="width: 600px; margin: 10% auto">
+    <fieldset>
+        @*<p>@Model.QuestionId</p>
+            @Html.DisplayFor(model => model.QuestionId)*@
+        @Html.HiddenFor(model => model.QuestionId, new { @id = "txtQuestionId" })
+        @Html.HiddenFor(model => model.CategoryId, new { @id = "txtCategoryId" })
+        <legend>@Model.QuestionName</legend>
+        <table style="width: 100%" class="table table-condensed" id="tblQuestionOption">
+
+            @foreach (var item in @Model.ListOfOptions)
+            {
+                <tr>
+                    <td>
+                        @Html.RadioButtonFor(model => model.OptionId, @item.OptionName)@item.OptionName
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    @if (Model.IsLast)
+                    {
+                        <input type="button" name="Save" value="Save" class="btn btn-success" id="btnSave" onclick="SaveAnswer()" />
+                    }
+                    else
+                    {
+                        <input type="button" name="Next" value="Next" class="btn btn-primary" id="btnNext" onclick="LoadQuestion()" />
+                    }
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

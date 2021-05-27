@@ -1,0 +1,24 @@
+﻿@model Quizz.ViewModel.QuizCategoryViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+@using (Html.BeginForm("Index", "Quiz", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+    <div class="container" style="width: 400px; margin: 15% auto">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId)
+            @Html.DropDownListFor(model => model.CategoryId, Model.ListOfCategory, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryId, null, new { @class = "text-danger" })
+        </div>
+        <input type="submit" name="Submit" value="Start" class="btn btn-primary" />
+    </div>
+}

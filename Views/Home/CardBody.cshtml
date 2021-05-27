@@ -1,0 +1,6 @@
+﻿@model Quizz.Models.Category
+
+
+@Html.HiddenFor(model => model.CategoryId, new { @id = "DBCategoryId"})
+<h4 class="card-title" style="font-weight:bold">@Model.CategoryName</h4>
+<p class="card-text" style="margin-right: 30px">Click Start Test to attend @Model.CategoryName test and see results.</p>

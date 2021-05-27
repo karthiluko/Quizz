@@ -1,0 +1,12 @@
+﻿@model Quizz.ViewModel.EditViewModel
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="form-control">
+    @Html.HiddenFor(model => model.CategoryId, new { @class = "control-label col-md-2", @id = "DBCategoryId" })
+    @Html.HiddenFor(model => model.QuestionId, new { @class = "control-label col-md-2", @id = "DBQuestionId" })
+    @Html.HiddenFor(model => model.AnswerText.AnswerId, new { @class = "control-label col-md-2", @id = "DBAnswerId" })
+
+    <div>
+        @Html.DisplayFor(model => model.QuestionName)
+    </div>
+</div>

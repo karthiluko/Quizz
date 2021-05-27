@@ -1,0 +1,70 @@
+﻿@model Quizz.ViewModel.PaymentInitiateViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Initiate</title>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*Link this css*@
+    <link href="~/Css/PaymentStyle.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container login-container">
+        <div class="login-card">
+            <div class="login-card-title">
+                <h3 style="text-align:center; margin:15px;">Register</h3>
+                <div class="login-card-body">
+                    @using (Html.BeginForm("CreateOrder", "Payment", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "text-danger" })
+                        <div class="row" style="color:red;">
+                            <label for="name">Name</label>
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Name, null, new { @class = "text text-danger" })
+                        </div>
+                        <div class="row" style="color:red;">
+                            <label for="email">Email</label>
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text text-danger" })
+                        </div>
+                        <div class="row" style="color:red;">
+                            <label for="UserName">UserName</label>
+                            @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.UserName, null, new { @class = "text text-danger" })
+                        </div>
+                        <div class="row" style="color:red;">
+                            <label for="Password">Password</label>
+                            @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Password, null, new { @class = "text text-danger", @id = "Password" })
+                        </div>
+                        <div class="row" style="color:red;">
+                            <label for="ConfirmPassword">ConfirmPassword</label>
+                            @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ConfirmPassword, null, new { @class = "text text-danger", @id = "ConfPassword" })
+                        </div>
+                        <div class="row" style="color:red;">
+                            <label for="contactNumber">Contact Number</label>
+                            @Html.TextBoxFor(x => x.ContactNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.ContactNumber, null, new { @class = "text text-danger" })
+                        </div>
+                        <div class="row" style="padding:15px">
+                            <label for="amount">Amount</label>
+                            @Html.HiddenFor(x => x.Amount)
+                            @Html.DisplayFor(x => x.Amount, new { @class = "form-control", @id = "price" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

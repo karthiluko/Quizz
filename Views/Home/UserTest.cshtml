@@ -1,0 +1,36 @@
+﻿@model List<Quizz.Models.Category>
+@{
+    ViewBag.Title = "UserTest";
+    var Categories = Model;
+}
+
+<h2 style="text-align:center">Test Category</h2>
+
+<div class="container">
+    <div class="row">
+        @{int i = 0; }
+        @foreach (var item in Categories)
+        {
+            <div>
+                @{string imgno = (i + ".jpg").ToString();
+                }
+                <div class="col-md-4" style="margin: 20px 0">
+                    <div class="card" style="width: 300px; background-color: white;">
+                        <img class="card-img-top" src="~/Content/Images/quizimg_@imgno" style="width:100%" alt="Card image cap">
+                        <div class="card-body" style="margin-left: 30px">
+                            @using (Html.BeginForm("UserTest", "Home", FormMethod.Post))
+                            {
+                                @Html.Partial("CardBody", item)
+                                @*@Html.HiddenFor(model => Categories[i].CategoryId)
+                <h4 class="card-title" style="font-weight:bold">@Categories[i].CategoryName</h4>
+                <p class="card-text" style="margin-right: 40px">Click Start Test to attend @Categories[i].CategoryName test and see results.</p>*@
+                                <input type="submit" value="Start Test" name="submit" class="btn btn-primary" style="margin-left: 70px; margin-bottom: 10px" />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            i = i + 1;
+        }
+    </div>
+</div>

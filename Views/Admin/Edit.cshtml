@@ -1,0 +1,45 @@
+﻿@model Quizz.ViewModel.EditViewModel
+
+@Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CategoryId, new { @class = "control-label col-md-2", @id = "DBCategoryId" })
+    @Html.HiddenFor(model => model.QuestionId, new { @class = "control-label col-md-2", @id = "DBQuestionId" })
+    @Html.HiddenFor(model => model.AnswerText.AnswerId, new { @class = "control-label col-md-2", @id = "DBAnswerId" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QuestionName, new { @class = "control-label col-md-2", @id = "DBQuestionName" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.QuestionName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.QuestionName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ListOfOptions, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @for (int i = 0; i < Model.ListOfOptions.Count(); i++)
+            {
+                @Html.HiddenFor(model => Model.ListOfOptions[i].OptionId)
+                var OptionId = Model.ListOfOptions[i].OptionId;
+                @Html.EditorFor(model => Model.ListOfOptions[i].OptionName, new { htmlAttributes = new { @class = "form-control", @id = "DBOption" } })
+                @Html.ValidationMessageFor(model => Model.ListOfOptions[i].OptionName, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AnswerText.AnswerText, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.AnswerText.AnswerText, new { htmlAttributes = new { @class = "form-control", @id = "DBAnswerText" } })
+            @Html.ValidationMessageFor(model => model.AnswerText.AnswerText, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="container" style="background-color: white; padding: 0">
+    <div>
+        <img src="~/Content/Images/quiz_1.jpg" style="padding: 0; position:relative; width: 100%; height: 500px" />
+    </div>
+    <br />
+    <div style="margin:4% auto; padding:2%;">
+        <p class="lead" style="font-size: large; font-weight:bolder">
+            &#8220;The strange thing is, if I was speaking to drama students about the thing that you should do if you're lucky enough to know or to meet the character that you're playing, I'd say, 'It's obvious: you quiz them diligently about their experience.&#8221;
+            - Rhys Ifans
+        </p>
+    </div>
+
+    <div style="background-color:white">
+        <div class="col-md-6">
+            <h2>Try Sample Test</h2>
+            <p>
+                Attend a sample quiz test on Math to enhance our website
+                And do buy our premium to attend more tests
+            </p>
+            <p><a type="button" class="btn btn-success" href="#fixed" onclick="location.href='@Url.Action("Index", "Quiz")'">Sample test &raquo;</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Buy Premium</h2>
+            <p>Buy our premium pack to access more tests on various topics and have a best experience</p>
+            <p><a type="button" class="btn btn-success" href="#fixed" onclick="location.href='@Url.Action("Index", "Payment")'">Premium &raquo;</a></p>
+        </div>
+        @*<div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>*@
+    </div>
+</div>

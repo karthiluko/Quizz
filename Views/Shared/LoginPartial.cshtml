@@ -1,0 +1,54 @@
+﻿
+
+<style>
+    @@media all and (min-width: 992px) {
+        .navbar .nav-item .dropdown-menu {
+            display: none;
+        }
+
+        .navbar .nav-item:hover .nav-link {
+            
+        }
+
+        .navbar .nav-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .navbar .nav-item .dropdown-menu {
+            margin-top: 0;
+        }
+            .navbar .nav-item .dropdown-menu .dropdown-item {
+                padding: 10px 0;
+                text-align: center;
+            }
+            .navbar .nav-item .dropdown-menu .dropdown-item:hover{
+                background-color: #030431;
+                color: white;
+            }
+    }
+</style>
+
+<ul class="nav navbar-nav navbar-left">
+    @if (Request.IsAuthenticated && User.Identity.Name == "Karthikrish")
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Admin</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href='@Url.Action("DisplayQuestion", "Admin")'>DisplayQuestion</a></li>
+                <li><a class="dropdown-item" href='@Url.Action("index", "Admin")'>Add Question</a></li>
+                <li><a class="dropdown-item" href='@Url.Action("UserDetail", "Admin")'> UserDetails </a></li>
+                <li><a class="dropdown-item" href='@Url.Action("Logout", "Account")'>Logout</a></li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink("Admin", "Index", "Account", null, null)
+        </li>
+    }
+
+</ul>
+
+
+    

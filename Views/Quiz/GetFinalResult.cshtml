@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Quizz.ViewModel.ResultModel>
+@{
+    ViewBag.Title = "GetFinalResult";
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<div class="container" style="margin:3% auto; background-color:white;">
+    <h3 style="text-align:center">ScoreBoard</h3>
+    <table style="width: 100%" class="table table-bordered">
+        <thead>
+            <tr>
+                <td>
+                    Question
+                </td>
+                <td>
+                    Correct Answer
+                </td>
+                <td>
+                    Your Answer
+                </td>
+                <td>
+                    Status
+                </td>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Question
+                </td>
+                <td>
+                    @item.Answer
+                </td>
+                <td>
+                    @item.AnswerByUser
+                </td>
+                <td>
+                    @if (item.Status == "Correct")
+                    {
+                        <label style="color: green">@item.Status</label>
+                    }
+                    else
+                    {
+                        <label style="color: red">@item.Status</label>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        @if (Request.IsAuthenticated)
+        {
+            <div class="col-md-4" style="margin:15px 0;">
+                <a href='@Url.Action("Index", "Home")' type="button" class="btn btn-lg btn-success btn-block">Go TO Home</a>
+            </div>
+            <div class="col-md-4" style="margin:15px 0;">
+
+            </div>
+            <div class="col-md-4" style="margin:15px 0;">
+                <a href='@Url.Action("UserTest", "Home")' type="button" class="btn btn-lg btn-success btn-block">Attend Test</a>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-4" style="margin-top:15px;">
+                <a href='@Url.Action("Index", "Home")' type="button" class="btn btn-lg btn-success btn-block">Go To Home</a>
+            </div>
+            <div class="col-md-4" style="margin-top:15px;">
+                <a href='@Url.Action("Index", "Quiz")' type="button" class="btn btn-lg btn-success btn-block">Attend Test</a>
+            </div>
+            <div class="col-md-4" style="margin-top:15px;">
+                <a href='@Url.Action("Index", "Payment")' type="button" class="btn btn-lg btn-success btn-block">Buy Premium</a>
+            </div>
+        }
+    </div>
+</div>

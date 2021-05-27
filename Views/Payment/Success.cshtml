@@ -1,0 +1,31 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+        }
+        a{
+            margin: 10px 12px
+        }
+    </style>
+</head>
+<body class="container">
+    <div>
+        <h3 style="color:green">Thanks for purchasing our premium pack...</h3>
+    </div>
+    <a href='@Url.Action("Index", "Home")' type="button" class="btn btn-success" ><< Go To Home</a>
+    <a href='@Url.Action("UserLogin", "Home")' type="button" class="btn btn-success" >Login</a>
+</body>
+</html>

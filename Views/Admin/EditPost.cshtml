@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Quizz.ViewModel.EditViewModel>
+
+@{
+    ViewBag.Title = "EditPost";
+}
+@*<script src="~/scripts/bootstrap.js"></script>*@
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container" style="font-weight: bold">
+    <h2>Questions</h2>
+
+    <p>
+        <a href='@Url.Action("index", "Admin")' type="button" class="btn btn-primary">Add Question</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListOfOptions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerText.AnswerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnswerText.AnswerText)
+            </th>
+            <th>
+                <p>Alter</p>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            string QuestionId = item.QuestionId.ToString();
+            @Html.HiddenFor(model => item.QuestionId, new { @id = "MDQuestionID" })
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionName)
+                </td>
+                <td>
+                    @foreach (var option in item.ListOfOptions)
+                    {
+                        <div>
+                            @Html.DisplayFor(listoption => option.OptionName)
+                        </div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnswerText.AnswerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnswerText.AnswerText)
+                </td>
+                <td>
+                    @*onclick="location.href='@Url.Action("Edit", "Admin", item)'"*@
+                    <input type="button" value="Edit" class="btn btn-primary" id="btnEdit" data-target="#EditModal_@QuestionId" data-toggle="modal" />
+
+                    <div class="modal fade" tabindex="-1" id="EditModal_@QuestionId" role="dialog" data-backdrop="static" aria-labelledby="EditModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a href="#fixed" id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </a>
+                                    <h3 class="modal-title" id="EditModal">Edit</h3>
+                                </div>
+                                @using (Html.BeginForm("Edit", "Admin", FormMethod.Post))
+                                {
+                                    <div class="modal-body">
+                                        @Html.Partial("Edit", item)
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Update" class="btn btn-success" onclick="UpdateQuestion()" />
+                                        <a href="#fixed" type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">cancel</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="button" value="Delete" class="btn btn-danger" id="btnEdit" data-target="#DeleteModal_@QuestionId" data-toggle="modal" />
+
+                    <div class="modal fade" tabindex="-1" id="DeleteModal_@QuestionId" role="dialog" data-backdrop="static" aria-labelledby="DeleteModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a href="#fixed" id="modal-close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </a>
+                                    <h5 class="modal-title" id="DeleteModal">Delete</h5>
+                                </div>
+                                @using (Html.BeginForm("Delete", "Admin", FormMethod.Post))
+                                {
+                                    <div class="modal-body">
+                                        <div class="form-horizontal">
+                                            @Html.Partial("Delete", item)
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Delete" class="btn btn-danger" />
+                                        <a href="#fixed" type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">cancel</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
